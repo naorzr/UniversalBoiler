@@ -18,9 +18,9 @@ export const serverBuilder: Builder = async (answers) => {
     default: ServerComposer;
   }).default(middlewares);
 
-  const { dependencies, devDependencies, script, imports } = server[fileType];
+  const { dependencies, devDependencies, script, imports, exports } = server[fileType];
   const packageJson = fromJS({ dependencies, devDependencies });
-  const fileContent = imports + "\n" + script + "\n";
+  const fileContent = imports + "\n" + script + "\n" + exports;
   return {
     file: { content: fileContent, name: `server.${fileType}` },
     packageJson,
