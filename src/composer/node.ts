@@ -12,15 +12,17 @@ import { serverBuilder } from "../server/builder";
 import * as path from "path";
 
 import {typescriptBuilder} from "../typescript/builder"
+import inquirer from "inquirer"
 const writeFile = (rootDir: string) => {
   fs.ensureDirSync(`./${rootDir}`);
   return (file: fileObject) => {
     return fs.writeFile(path.join(rootDir, file.name), file.content);
   };
 };
-
+const ui = new inquirer.ui.BottomBar();
 
 export const createNodeApp = async (answers: Answers) => {
+  ui.log.write('Creating node application')
   const { whichServer: serverType, appName, shouldUseTs } = answers;
   const writeAppFile = writeFile(appName);
 
@@ -35,7 +37,9 @@ export const createNodeApp = async (answers: Answers) => {
     packageJson
   );
 
+  ui.log.write('Composing files')
   const filesWritten = await Promise.all(aggFiles.map(i => writeAppFile(i!.file)))
+  ui.log.write('Composing package json')
   await writeAppFile({
     name: "package.json",
     content: JSON.stringify(updatedPackageJson),

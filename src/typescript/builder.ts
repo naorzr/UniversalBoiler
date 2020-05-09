@@ -6,7 +6,7 @@ export const typescriptBuilder: Builder = async (answers) => {
   if (!shouldUseTs) {
     return;
   }
-  const tsconfig = ((await import(`./${"index"}.ts`)) as {
+  const tsconfig = ((await import(`./${"index"}`)) as {
     default: TsConfig;
   }).default(answers);
   const {devDependencies, dependencies, script, imports} = tsconfig

@@ -12,7 +12,7 @@ export const serverBuilder: Builder = async (answers) => {
   const { whichServer: serverType, appName, shouldUseTs } = answers;
 
   const fileType = shouldUseTs ? ("ts" as const) : ("js" as const);
-  const middlewares = (await import(`./middlewares/${serverType}.ts`))
+  const middlewares = (await import(`./middlewares/${serverType}`))
     .default as Middleware;
   const server = ((await import(`./${serverType}`)) as {
     default: ServerComposer;

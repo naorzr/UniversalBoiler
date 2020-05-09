@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import inquirer from "inquirer";
 import { createReactApp } from "./composer/react";
 import { createNodeApp } from "./composer/node";
