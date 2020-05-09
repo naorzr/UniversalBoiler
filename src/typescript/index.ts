@@ -19,6 +19,7 @@ const tsconfig: TsConfig = (answers) => ({
            },
             "exclude": ["node_modules","dist"]
            }`,
+    exports: ``,
   dependencies: {},
   devDependencies: { typescript: "^3.8.3", "ts-node": "^8.10.1" },
 });

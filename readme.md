@@ -31,8 +31,9 @@ npx universal-boiler
 ## Roadmap
 
 -  [ ] Expose more common middlewares for express
--  [ ] Add tooling support (prettier, husky, eslint)
+-  [ ] Add tooling support (prettier, husky, eslint, dotenv, loggers)
 -  [ ] Add testing frameworks (jest, mocha)
+-  [ ] Add database connector support
 -  [ ] Add support for Hapi
 -  [ ] Add support for vue.js
 -  [ ] Contributor guide

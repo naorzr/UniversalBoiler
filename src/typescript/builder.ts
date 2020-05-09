@@ -9,9 +9,9 @@ export const typescriptBuilder: Builder = async (answers) => {
   const tsconfig = ((await import(`./${"index"}`)) as {
     default: TsConfig;
   }).default(answers);
-  const {devDependencies, dependencies, script, imports} = tsconfig
+  const {devDependencies, dependencies, script, imports, exports} = tsconfig
   const packageJson = {
     devDependencies, dependencies
   };
-  return { file: { content: `${imports}\n${script}`, name: "tsconfig.json" }, packageJson };
+  return { file: { content: `${imports}\n${script}\n${exports}`, name: "tsconfig.json" }, packageJson };
 };

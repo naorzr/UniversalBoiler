@@ -3,6 +3,7 @@ export type dependancy = Record<string, string>;
 export interface PackageUnit {
   imports: string;
   script: string;
+  exports: string;
   devDependencies: dependancy;
   dependencies: dependancy;
 }

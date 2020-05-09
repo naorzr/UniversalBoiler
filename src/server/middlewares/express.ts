@@ -1,16 +1,18 @@
-import {Middleware} from "../../../types";
+import { Middleware } from "../../../types";
 import { mergeDeepWith } from "immutable";
 
 const pino: Middleware = {
   js: {
     imports: "const pino = require('express-pino-logger')()",
     script: "app.use(pino)",
+    exports: ``,
     dependencies: { "express-pino-logger": "5.0.0" },
     devDependencies: {},
   },
   ts: {
     imports: "import pino from 'express-pino-logger'",
     script: "app.use(pino())",
+    exports: ``,
     dependencies: { "express-pino-logger": "5.0.0" },
     devDependencies: { "@types/express-pino-logger": "4.0.2" },
   },

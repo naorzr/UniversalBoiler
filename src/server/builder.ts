@@ -20,7 +20,7 @@ export const serverBuilder: Builder = async (answers) => {
 
   const { dependencies, devDependencies, script, imports } = server[fileType];
   const packageJson = fromJS({ dependencies, devDependencies });
-  const fileContent = imports + "\n" + script;
+  const fileContent = imports + "\n" + script + "\n";
   return {
     file: { content: fileContent, name: `server.${fileType}` },
     packageJson,

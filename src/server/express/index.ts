@@ -24,7 +24,8 @@ const express: ServerComposer = (middleware) => ({
   const server = http.createServer(app)
   return server
 }
-`,
+${middleware?.js.exports}
+`, exports: `module.exports = {createServer}`,
     devDependencies: {
       ...(middleware?.ts.devDependencies || {}),
     },
@@ -57,7 +58,9 @@ const express: ServerComposer = (middleware) => ({
   const server = http.createServer(app)
   return server
 }
+  ${middleware?.ts.exports}
   `,
+  exports: `export {createServer}`,
     devDependencies: {
       "@types/cookie-parser": "^1.4.2",
       ...(middleware?.ts.devDependencies || {}),
