@@ -9,7 +9,7 @@
     "start": "npx ts-node ./src/index.ts"
   },
   "bin": {
-    "uni-boiler": "./lib/index.js"
+    "universal-boiler": "./lib/index.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
