@@ -28,9 +28,12 @@ npx universal-boiler
 ```     
 
 <!-- ROADMAP -->
-## Roadmap
-
--  [ ] Expose more common middlewares for express
+## What's Supported and Roadmap
+-  [x] ReactJs (through cra)
+-  [x] Typescript
+-  [x] Node App
+-  [x] ExpressJs
+-  [ ] Common middlewares for express
 -  [ ] Add tooling support (prettier, husky, eslint, dotenv, loggers)
 -  [ ] Add testing frameworks (jest, mocha)
 -  [ ] Add database connector support
