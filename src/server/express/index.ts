@@ -1,12 +1,12 @@
 import {ServerComposer} from "../../../types"
 
 const express: ServerComposer = (middleware) => ({
-  javascript: {
+  js: {
     imports: `
   const express = require("express");
   const http = require('http')
   const cookieParser = require("cookie-parser");
-  ${middleware?.javascript.imports}
+  ${middleware?.js.imports}
     `,
     script: `
   const createServer = (sessionSecret = process.env.SESSION_SECRET, reqLimit = process.env.REQUEST_LIMIT ) => {
@@ -20,26 +20,26 @@ const express: ServerComposer = (middleware) => ({
     })
   );
   app.use(cookieParser(sessionSecret));
-  ${middleware?.javascript.script}
+  ${middleware?.js.script}
   const server = http.createServer(app)
   return server
 }
 `,
     devDependencies: {
-      ...(middleware?.javascript.devDependencies || {}),
+      ...(middleware?.ts.devDependencies || {}),
     },
     dependencies: {
       "cookie-parser": "^1.4.5",
       express: "^4.17.1",
-      ...(middleware?.typescript.dependencies || {}),
+      ...(middleware?.ts.dependencies || {}),
     },
   },
-  typescript: {
+  ts: {
     imports: `
   import express from "express";
   import http from 'http'
   import cookieParser from "cookie-parser";
-  ${middleware?.typescript.imports}
+  ${middleware?.ts.imports}
     `,
     script: `
   const createServer = (sessionSecret = process.env.SESSION_SECRET, reqLimit = process.env.REQUEST_LIMIT ) => {
@@ -53,19 +53,19 @@ const express: ServerComposer = (middleware) => ({
     })
   );
   app.use(cookieParser(sessionSecret));
-  ${middleware?.typescript.script}
+  ${middleware?.ts.script}
   const server = http.createServer(app)
   return server
 }
   `,
     devDependencies: {
       "@types/cookie-parser": "^1.4.2",
-      ...(middleware?.typescript.devDependencies || {}),
+      ...(middleware?.ts.devDependencies || {}),
     },
     dependencies: {
       "cookie-parser": "^1.4.5",
       express: "^4.17.1",
-      ...(middleware?.typescript.dependencies || {}),
+      ...(middleware?.ts.dependencies || {}),
     },
   },
 });

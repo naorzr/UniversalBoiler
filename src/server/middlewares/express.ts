@@ -2,14 +2,14 @@ import {Middleware} from "../../../types";
 import { mergeDeepWith } from "immutable";
 
 const pino: Middleware = {
-  javascript: {
+  js: {
     imports: "const pino = require('express-pino-logger')()",
     script: "app.use(pino)",
     dependencies: { "express-pino-logger": "5.0.0" },
     devDependencies: {},
   },
-  typescript: {
-    imports: "import pino from ('express-pino-logger')",
+  ts: {
+    imports: "import pino from 'express-pino-logger'",
     script: "app.use(pino())",
     dependencies: { "express-pino-logger": "5.0.0" },
     devDependencies: { "@types/express-pino-logger": "4.0.2" },
@@ -32,13 +32,13 @@ const aggregatedMiddleware = middlewares.reduce(
     );
   },
   {
-    javascript: {
+    js: {
       imports: "",
       script: "",
       devDependencies: {},
       dependencies: {},
     },
-    typescript: {
+    ts: {
       imports: "",
       script: "",
       devDependencies: {},

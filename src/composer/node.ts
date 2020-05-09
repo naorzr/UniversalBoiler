@@ -1,37 +1,43 @@
 import { fromJS } from "immutable";
 import fs from "fs-extra";
-import { Middleware, Server, ServerComposer } from "../../types";
-export const createNodeApp = async (params: {
-  server: string;
-  appName: string;
-  shouldUseTs: boolean;
-}) => {
-  const { server: serverType, appName, shouldUseTs } = params;
+import {
+  Answers,
+  fileObject,
+  Middleware,
+  Server,
+  ServerComposer,
+} from "../../types";
+import { serverBuilder } from "../server/builder";
 
-  const scriptType = shouldUseTs
-    ? ("typescript" as const)
-    : ("javascript" as const);
-  const filePostfix = shouldUseTs ? "ts" : "js";
+import * as path from "path";
+
+import {typescriptBuilder} from "../typescript/builder"
+const writeFile = (rootDir: string) => {
+  fs.ensureDirSync(`./${rootDir}`);
+  return (file: fileObject) => {
+    return fs.writeFile(path.join(rootDir, file.name), file.content);
+  };
+};
+
+
+export const createNodeApp = async (answers: Answers) => {
+  const { whichServer: serverType, appName, shouldUseTs } = answers;
+  const writeAppFile = writeFile(appName);
+
   const packageJson = fromJS({ name: appName, version: "1.0.0" });
-  const middlewares = (await import(`../server/middlewares/${serverType}.ts`))
-    .default as Middleware;
-  console.log('middlewares',middlewares)
-  const server = ((await import(`../server/${serverType}`)) as {
-    default: ServerComposer;
-  }).default(middlewares);
-
-  const { dependencies, devDependencies, script, imports } = server[scriptType];
-
-  const updatedPackageJson = packageJson.mergeDeep(
-    fromJS({ dependencies }),
-    fromJS({ devDependencies })
+  // Todo: better type this
+  const aggFiles = (await Promise.all([serverBuilder(answers), typescriptBuilder(answers)])).filter(
+    (i) => typeof i !== "undefined"
   );
 
-
-  fs.ensureDirSync(`./${appName}`)
-  fs.writeFileSync(
-    `./${appName}/package.json`,
-    JSON.stringify(updatedPackageJson)
+  const updatedPackageJson = aggFiles.reduce(
+    (aggPackageJson, i) => aggPackageJson.mergeDeep(i!.packageJson),
+    packageJson
   );
-  fs.writeFileSync(`./${appName}/server.${filePostfix}`,imports + "\n" +  script);
+
+  const filesWritten = await Promise.all(aggFiles.map(i => writeAppFile(i!.file)))
+  await writeAppFile({
+    name: "package.json",
+    content: JSON.stringify(updatedPackageJson),
+  });
 };

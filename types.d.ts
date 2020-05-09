@@ -1,7 +1,6 @@
-
 export type dependancy = Record<string, string>;
 
-export interface Package {
+export interface PackageUnit {
   imports: string;
   script: string;
   devDependencies: dependancy;
@@ -9,13 +8,31 @@ export interface Package {
 }
 
 export interface Server {
-  javascript: Package;
-  typescript: Package;
+  js: PackageUnit;
+  ts: PackageUnit;
 }
 
-export type ServerComposer = (middleware?: Middleware) => Server;
+export interface fileObject {
+  content: string;
+  name: string;
+}
 
+export type Builder = (
+  answers: Answers
+) => Promise<undefined | {
+  file: fileObject;
+  packageJson: Record<string,any>;
+}> ;
+export type fileType = "ts" | "js";
+
+export type ServerComposer = (middleware?: Middleware) => Server;
+export interface Answers {
+  appName: any;
+  whichServer: any;
+  projectType: any;
+  shouldUseTs: any;
+}
 export interface Middleware {
-  typescript: Package;
-  javascript: Package;
+  js: PackageUnit;
+  ts: PackageUnit;
 }

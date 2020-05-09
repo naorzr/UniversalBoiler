@@ -1,7 +1,13 @@
 import inquirer from "inquirer";
-import {createReactApp} from "./composer/react"
-import {createNodeApp} from "./composer/node"
-
+import { createReactApp } from "./composer/react";
+import { createNodeApp } from "./composer/node";
+import { exec } from "child_process";
+import {
+  asPromise,
+  withLogs,
+} from "./internals/utils";
+import * as path from "path";
+const ui = new inquirer.ui.BottomBar();
 const shouldUseTs = () => {
   return inquirer.prompt({
     type: "confirm",
@@ -26,8 +32,7 @@ const whichServer = () => {
     name: "whichServer",
     choices: [{ name: "express" }],
   });
-}
-
+};
 
 const appName = () => {
   return inquirer.prompt({
@@ -37,6 +42,8 @@ const appName = () => {
   });
 };
 
+// Todo: Rewrite this entire thing and better type this
+
 (async function () {
   const _appName = await appName();
   const _projectType = await projectType();
@@ -44,12 +51,19 @@ const appName = () => {
   const answer = { ..._appName, ..._projectType, ..._shouldUseTs };
 
   if (answer.projectType === "react") {
-    createReactApp(answer);
-  } else if(answer.projectType === 'node'){
-    const {whichServer: server} = await whichServer()
-
-    createNodeApp({...answer, server})
-    console.log("typeOfProject1", {...answer, server});
+    await createReactApp(answer);
+  } else if (answer.projectType === "node") {
+    await createNodeApp({
+      ...answer,
+      whichServer: (await whichServer()).whichServer,
+    });
+    const childProcess = exec(`npm i`, {
+      cwd: path.join(process.cwd(), _appName.appName),
+    });
+    const childProcessWithLogs = withLogs(childProcess);
+    ui.log.write(`Installing Packages`)
+    await asPromise(childProcessWithLogs);
+    ui.log.write(`All done!`)
   }
-  console.log("typeOfProject2", answer);
+  return process.exit(0)
 })();

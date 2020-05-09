@@ -1,19 +1,21 @@
-import {exec} from "child_process"
-import inquirer from "inquirer"
-
+import { ChildProcess, exec } from "child_process";
+import inquirer from "inquirer";
+import util from "util";
+import {asPromise, withLogs} from "../internals/utils";
+const execAsync = util.promisify(exec);
 const ui = new inquirer.ui.BottomBar();
 
 export const createReactApp = ({
-                            shouldUseTs,
-                            appName,
-                        }: {
-    shouldUseTs: boolean;
-    appName: string;
+  shouldUseTs,
+  appName,
+}: {
+  shouldUseTs: boolean;
+  appName: string;
 }) => {
-    const cmd = `npx create-react-app ${appName} ${
-        shouldUseTs ? "--template typescript" : ""
-    }`;
-    const process = exec(cmd);
-    process.stdout?.pipe(ui.log);
-    process.stderr?.pipe(ui.log);
+  const cmd = `npx create-react-app ${appName} ${
+    shouldUseTs ? "--template typescript" : ""
+  }`;
+  const process = exec(cmd);
+  const processWithLogs = withLogs(process)
+  return asPromise(processWithLogs);
 };

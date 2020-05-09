@@ -1,8 +1,8 @@
 {
   "name": "universal-boiler",
   "version": "1.0.0",
-  "main": "index.js",
-  "tyes": "index.d.ts",
+  "main": "lib/index.js",
+  "tyes": "lib/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "rimraf -r lib && tsc --noEmit false",
