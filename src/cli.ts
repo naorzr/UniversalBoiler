@@ -6,13 +6,13 @@ import { createReactApp } from "./internals/src/composers/react";
 import { createNodeApp } from "internals/src/composers/node/node";
 import { asPromise, withLogs } from "./internals/src/utils";
 const ui = new inquirer.ui.BottomBar();
-const shouldUseTs = () => {
-  return inquirer.prompt({
-    type: "confirm",
-    message: "Do you want to use typescript?",
-    name: "shouldUseTs",
-  });
-};
+// const shouldUseTs = () => {
+//   return inquirer.prompt({
+//     type: "confirm",
+//     message: "Do you want to use typescript?",
+//     name: "shouldUseTs",
+//   });
+// };
 
 const projectType = () => {
   return inquirer.prompt({
@@ -46,8 +46,8 @@ const appName = () => {
 (async function () {
   const _appName = await appName();
   const _projectType = await projectType();
-  const _shouldUseTs = await shouldUseTs();
-  const answer = { ..._appName, ..._projectType, ..._shouldUseTs };
+  // const _shouldUseTs = await shouldUseTs();
+  const answer = { ..._appName, ..._projectType, shouldUseTs: true };
 
   if (answer.projectType === "react") {
     await createReactApp(answer);
