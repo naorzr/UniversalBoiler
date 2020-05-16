@@ -1,0 +1,13 @@
+{
+  "name": "server-express",
+  "version": "1.0.0",
+  "dependencies": {
+    "express-pino-logger": "5.0.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express-pino-logger": "4.0.2",
+    "@types/cookie-parser": "^1.4.2"
+  }
+}

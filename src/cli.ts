@@ -1,13 +1,10 @@
 #!/usr/bin/env node
 import inquirer from "inquirer";
-import { createReactApp } from "./composer/react";
-import { createNodeApp } from "./composer/node";
 import { exec } from "child_process";
-import {
-  asPromise,
-  withLogs,
-} from "./internals/utils";
 import * as path from "path";
+import { createReactApp } from "./internals/src/composers/react";
+import { createNodeApp } from "./internals/src/composers/node";
+import { asPromise, withLogs } from "./internals/src/utils";
 const ui = new inquirer.ui.BottomBar();
 const shouldUseTs = () => {
   return inquirer.prompt({
@@ -62,9 +59,9 @@ const appName = () => {
       cwd: path.join(process.cwd(), _appName.appName),
     });
     const childProcessWithLogs = withLogs(childProcess);
-    ui.log.write(`Installing Packages`)
+    ui.log.write(`Installing Packages`);
     await asPromise(childProcessWithLogs);
-    ui.log.write(`All done!`)
+    ui.log.write(`All done!`);
   }
-  return process.exit(0)
+  return process.exit(0);
 })();

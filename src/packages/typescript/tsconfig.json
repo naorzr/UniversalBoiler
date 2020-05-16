@@ -4,16 +4,10 @@
     "target": "es5",
     "module": "commonjs",
     "lib": ["ESNext"],
-    /* Generates corresponding '.d.ts' file. */
-    "declaration": true,
-    "outDir": "lib",
-    /* Strict Type-Checking Options */
     "strict": true,
-
     /* Module Resolution Options */
     "moduleResolution": "node",
     "esModuleInterop": true,
-
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
