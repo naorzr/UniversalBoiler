@@ -3,7 +3,7 @@ import inquirer from "inquirer";
 import { exec } from "child_process";
 import * as path from "path";
 import { createReactApp } from "./internals/src/composers/react";
-import { createNodeApp } from "./internals/src/composers/node";
+import { createNodeApp } from "internals/src/composers/node/node";
 import { asPromise, withLogs } from "./internals/src/utils";
 const ui = new inquirer.ui.BottomBar();
 const shouldUseTs = () => {

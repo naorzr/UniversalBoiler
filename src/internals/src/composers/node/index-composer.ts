@@ -1,5 +1,5 @@
-import { Answers, Composer } from "../../../../types";
-import { finalFilesMap } from "../map";
+import { Answers, Composer } from "../../../../../types";
+import { finalFilesMap } from "../../map";
 import * as path from "path";
 
 const indexComposer: Composer = async (answers: Answers) => {

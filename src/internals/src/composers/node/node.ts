@@ -2,9 +2,9 @@ import { fromJS } from "immutable";
 import fs from "fs-extra";
 import * as path from "path";
 import inquirer from "inquirer";
-import { Answers, fileObject } from "../../../../types";
-import serverComposer from "../../../packages/server/composer";
-import tsComposer from "../../../packages/typescript/composer";
+import { Answers, fileObject } from "../../../../../types";
+import serverComposer from "../../../../packages/server/composer";
+import tsComposer from "../../../../packages/typescript/composer";
 import indexComposer from "./index-composer";
 
 const writeFile = (rootDir: string) => {
