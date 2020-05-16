@@ -5,11 +5,12 @@ import inquirer from "inquirer";
 import { Answers, fileObject } from "../../../../types";
 import serverComposer from "../../../packages/server/composer";
 import tsComposer from "../../../packages/typescript/composer";
+import indexComposer from "./index-composer";
 
 const writeFile = (rootDir: string) => {
   fs.ensureDirSync(`./${rootDir}`);
   return (file: fileObject) => {
-    return fs.writeFile(path.join(rootDir, file.name), file.content);
+    return fs.writeFile(path.join(rootDir, file.path), file.content);
   };
 };
 const ui = new inquirer.ui.BottomBar();
@@ -21,7 +22,11 @@ export const createNodeApp = async (answers: Answers) => {
 
   // Todo: better type this
   const aggFiles = (
-    await Promise.all([serverComposer(answers), tsComposer(answers)])
+    await Promise.all([
+      serverComposer(answers),
+      tsComposer(answers),
+      indexComposer(answers),
+    ])
   ).filter((i) => typeof i !== "undefined");
 
   const packageJson = aggFiles
@@ -37,7 +42,7 @@ export const createNodeApp = async (answers: Answers) => {
   );
   ui.log.write("Composing package json");
   await writeAppFile({
-    name: "package.json",
+    path: "package.json",
     content: JSON.stringify(packageJson),
   });
 };

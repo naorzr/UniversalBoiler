@@ -15,10 +15,11 @@ export interface Server {
 
 export interface fileObject {
   content: string;
-  name: string;
+  path: string;
 }
 
-export type Builder = (
+
+export type Composer = (
   answers: Answers
 ) => Promise<undefined | {
   file: fileObject;
