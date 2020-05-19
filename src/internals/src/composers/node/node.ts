@@ -3,14 +3,14 @@ import fs from "fs-extra";
 import * as path from "path";
 import inquirer from "inquirer";
 import { Answers, fileObject } from "../../../../../types";
-import serverComposer from "../../../../packages/server/composer";
-import tsComposer from "../../../../packages/typescript/composer";
+import serverComposer from "../server";
+import tsComposer from "../typescript";
 import indexComposer from "./index-composer";
 
 const writeFile = (rootDir: string) => {
   fs.ensureDirSync(`./${rootDir}`);
   return (file: fileObject) => {
-    return fs.writeFile(path.join(rootDir, file.path), file.content);
+    return fs.writeFile(path.join(rootDir, file.finalPath), file.content);
   };
 };
 const ui = new inquirer.ui.BottomBar();
@@ -29,6 +29,7 @@ export const createNodeApp = async (answers: Answers) => {
     ])
   ).filter((i) => typeof i !== "undefined");
 
+
   const packageJson = aggFiles
     .reduce(
       (aggPackageJson, i) => aggPackageJson.mergeDeep(i!.packageJson),
@@ -42,7 +43,7 @@ export const createNodeApp = async (answers: Answers) => {
   );
   ui.log.write("Composing package json");
   await writeAppFile({
-    path: "package.json",
+    finalPath: "package.json",
     content: JSON.stringify(packageJson),
   });
 };

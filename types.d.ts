@@ -15,7 +15,7 @@ export interface Server {
 
 export interface fileObject {
   content: string;
-  path: string;
+  finalPath: string;
 }
 
 

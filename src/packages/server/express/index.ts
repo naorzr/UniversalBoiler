@@ -20,4 +20,5 @@ const server = (sessionSecret = "secret", reqLimit = "100kb") => {
   return server;
 };
 
+server().listen(3000,() => console.log('hello'))
 export default server;

@@ -1,6 +1,7 @@
 {
   "name": "server-express",
   "version": "1.0.0",
+  "scripts": {"start": "ts-node index.ts"},
   "dependencies": {
     "express-pino-logger": "5.0.0",
     "cookie-parser": "^1.4.5",

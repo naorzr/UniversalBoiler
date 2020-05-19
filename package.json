@@ -1,6 +1,8 @@
 {
   "name": "universal-boiler",
-  "version": "1.1.0",
+  "author": "naorzr",
+  "version": "1.1.4",
+  "description": "boilerplate done right",
   "url": "https://github.com/naorzr/UniversalBoiler",
   "main": "lib/cli.js",
   "types": "lib/cli.d.ts",
@@ -10,19 +12,25 @@
     "src/**/*"
   ],
   "scripts": {
-    "build": "rimraf -r lib && tsc --noEmit false",
+    "build": "ts-node ./publish-scripts/build.ts",
+    "pack": "ts-node ./publish-scripts/pack.ts",
+    "publish": "npm publish ./lib/%npm_package_name%-%npm_package_version%.tgz",
+    "build and pack": "npm run build && npm run pack",
+    "build:pack:publish": "npm run \"build and pack\" && npm run publish",
     "start": "npx ts-node ./src/cli.ts"
   },
   "bin": {
-    "universal-boiler": "./lib/cli.js"
+    "universal-boiler": "./cli.js"
   },
   "dependencies": {
+    "inquirer": "^7.1.0",
     "@types/fs-extra": "^9.0.0",
     "fs-extra": "^9.0.0",
     "immutable": "^4.0.0-rc.12",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
+    "@types/inquirer": "^6.5.0",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.2"

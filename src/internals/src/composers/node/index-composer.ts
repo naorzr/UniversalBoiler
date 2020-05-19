@@ -13,7 +13,7 @@ const indexComposer: Composer = async (answers: Answers) => {
    server().listen(port, () => console.log(\`App is listening on localhost:\${port}\`))
   `;
 
-  const indexFilePath = finalFilesMap.index(fileType).path;
+  const indexFilePath = finalFilesMap.index(fileType).finalPath;
   const buildScript = fileType === "ts" ? { build: "tsc --noEmit false" } : {};
   const packageJson = {
     main: indexFilePath,
@@ -22,7 +22,7 @@ const indexComposer: Composer = async (answers: Answers) => {
       ...buildScript,
     },
   };
-  return { file: { content, path: indexFilePath }, packageJson };
+  return { file: { content, finalPath: indexFilePath }, packageJson };
 };
 
 export default indexComposer;

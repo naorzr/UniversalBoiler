@@ -17,5 +17,7 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src"],
+  "exclude": ["./src/packages", "publish-scripts"]
 }
