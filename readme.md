@@ -33,7 +33,7 @@ npx universal-boiler
 -  [x] Typescript
 -  [x] Node App
 -  [x] ExpressJs
--  [ ] Common middlewares for express
+-  [x] Common middlewares for express
 -  [ ] Add tooling support (prettier, husky, eslint, dotenv, loggers)
 -  [ ] Add testing frameworks (jest, mocha)
 -  [ ] Add database connector support
