@@ -3,9 +3,10 @@ import { buildFold } from "./build";
 import * as path from "path";
 import { execSync } from "child_process";
 
-const createPackageJson = () => {
+const rootDir = path.join(__dirname, "../");
+const includePackageJson = () => {
   const packageJson = Object.assign(
-    fs.readJsonSync(path.join(__dirname, "../package.json")),
+    fs.readJsonSync(path.join(rootDir, "package.json")),
     {
       main: "./cli.js",
       types: "./cli.d.ts",
@@ -18,17 +19,24 @@ const createPackageJson = () => {
     }
   );
   fs.writeJsonSync(path.join(buildFold, "package.json"), packageJson);
-  return packageJson
+  return packageJson;
 };
 
+const includeReadme = () => {
+  fs.copySync(
+    path.join(rootDir, "readme.md"),
+    path.join(buildFold, "readme.md")
+  );
+};
+
+// Todo: can be better optimized without the sync
 const pack = () => {
-  const packageJson = createPackageJson();
-  const {name, version} = packageJson
+  includePackageJson();
+  includeReadme();
   execSync(`cd ${buildFold} && npm pack`);
-  return `${name}-${version}.tgz`
 };
 
-pack()
+pack();
 // const publish = () => {
 //     pack();
 //     execSync(`cd ${buildFold} && npm publish`)
