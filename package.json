@@ -24,13 +24,13 @@
     "universal-boiler": "./cli.js"
   },
   "dependencies": {
-    "@types/fs-extra": "^9.0.0",
     "fs-extra": "^9.0.0",
     "immutable": "^4.0.0-rc.12",
     "inquirer": "^7.1.0",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.0",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^25.2.3",
     "@types/supertest": "^2.0.9",
