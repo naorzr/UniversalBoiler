@@ -1,24 +1,26 @@
 import express from "express";
-import http from "http";
+import * as http from "http";
 import cookieParser from "cookie-parser";
 import pino from "express-pino-logger";
+import bodyParser from "body-parser";
 
-const server = (sessionSecret = "secret", reqLimit = "100kb") => {
+const createServer = (sessionSecret = "secret", reqLimit = "100kb") => {
   const app = express();
 
-  app.use(express.json({ limit: reqLimit }));
-  app.use(
-    express.urlencoded({
-      extended: true,
-      limit: reqLimit,
-    })
-  );
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: false, limit: reqLimit }));
+  // parse application/json
+  app.use(bodyParser.json({ limit: reqLimit }));
   app.use(cookieParser(sessionSecret));
+  // Rest logger
   app.use(pino());
+
+  app.get("/", (req, res) => {
+    res.send("hello world");
+  });
 
   const server = http.createServer(app);
   return server;
 };
 
-server().listen(3000,() => console.log('hello'))
-export default server;
+export default createServer;

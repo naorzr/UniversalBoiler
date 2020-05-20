@@ -26,7 +26,7 @@ const projectType = () => {
 const whichServer = () => {
   return inquirer.prompt({
     type: "list",
-    message: "Which server do you prefer to use?",
+    message: "Which createServer do you prefer to use?",
     name: "whichServer",
     choices: [{ name: "express" }],
   });

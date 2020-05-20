@@ -7,7 +7,7 @@ export const finalFilesMap = {
   server: (fileType = "ts") => ({
     finalPath: `./server.${fileType}`,
     packagePath: path.join(pathToPackages, `server`),
-    indexImportPath: "./server",
+    indexImportPath: "./createServer",
   }),
   tsconfig: () => ({
     finalPath: `./tsconfig.json`,
