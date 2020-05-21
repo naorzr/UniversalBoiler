@@ -1,14 +1,13 @@
 import { Answers } from "../../../../types";
 import fs from "fs-extra";
 import * as path from "path";
-import {finalFilesMap} from "../map"
-
+import { filesMap } from "../map";
 
 const serverComposer = async (answers: Answers) => {
   const { whichServer: serverType, appName } = answers;
 
   const fileType = "ts";
-  const { finalPath: serverPath, packagePath } = finalFilesMap.server(fileType);
+  const { outFilePath, packagePath } = filesMap.server;
   // Todo: no need to wait for these separately, can be optimized.
   const server = await fs.readFile(
     path.join(packagePath, serverType, `index.${fileType}`),
@@ -19,7 +18,7 @@ const serverComposer = async (answers: Answers) => {
   );
 
   return {
-    file: { content: server, finalPath: serverPath },
+    file: { content: server, finalPath: outFilePath },
     packageJson,
   };
 };

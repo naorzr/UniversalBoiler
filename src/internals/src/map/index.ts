@@ -1,19 +1,23 @@
 import * as path from "path";
 
-const pathToPackages = path.resolve(__dirname,"..", "..", "..", "packages");
+const pathToPackages = path.resolve(__dirname, "..", "..", "..", "packages");
 
 // Separating it seems like a better idea then passing fileType.. better to refactor when plain js would be supported
-export const finalFilesMap = {
-  server: (fileType = "ts") => ({
-    finalPath: `./server.${fileType}`,
+export const filesMap = {
+  server: {
+    outFilePath: `./server.ts`,
     packagePath: path.join(pathToPackages, `server`),
-    indexImportPath: "./createServer",
-  }),
-  tsconfig: () => ({
-    finalPath: `./tsconfig.json`,
+    indexImportPath: "./server",
+  },
+  tsconfig: {
+    outFilePath: `./tsconfig.json`,
     packagePath: path.join(pathToPackages, `typescript`),
-  }),
-  index: (fileType = "ts") => ({
-    finalPath: `index.${fileType}`,
-  }),
+  },
+  prettier: {
+    outFilePath: `./.prettierrc`,
+    packagePath: path.join(pathToPackages, `prettier`),
+  },
+  index: {
+    outFilePath: `index.ts`,
+  },
 };

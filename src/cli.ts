@@ -37,7 +37,7 @@ const appName = () => {
     type: "input",
     message: "What is the app name?",
     name: "appName",
-    default: 'app'
+    default: "app",
   });
 };
 

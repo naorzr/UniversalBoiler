@@ -13,7 +13,7 @@ const createServer = (sessionSecret = "secret", reqLimit = "100kb") => {
   app.use(bodyParser.json({ limit: reqLimit }));
   app.use(cookieParser(sessionSecret));
   // Rest logger
-  app.use(pino({prettyPrint: true}));
+  app.use(pino({ prettyPrint: true }));
 
   app.get("/", (req, res) => {
     res.send("hello world");

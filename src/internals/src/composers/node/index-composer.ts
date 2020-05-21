@@ -1,11 +1,11 @@
 import { Answers, Composer } from "../../../../../types";
-import { finalFilesMap } from "../../map";
+import { filesMap } from "../../map";
 import * as path from "path";
 
 const indexComposer: Composer = async (answers: Answers) => {
   const fileType = "ts";
   // Todo: this entire thing is akward.. better rewrite
-  const serverPath = finalFilesMap.server(fileType).indexImportPath;
+  const serverPath = filesMap.server.indexImportPath;
   const content = `
    import server from '${serverPath}'
     
@@ -13,7 +13,7 @@ const indexComposer: Composer = async (answers: Answers) => {
    server().listen(port, () => console.log(\`App is listening on localhost:\${port}\`))
   `;
 
-  const indexFilePath = finalFilesMap.index(fileType).finalPath;
+  const indexFilePath = filesMap.index.outFilePath;
   const buildScript = fileType === "ts" ? { build: "tsc --noEmit false" } : {};
   const packageJson = {
     main: indexFilePath,

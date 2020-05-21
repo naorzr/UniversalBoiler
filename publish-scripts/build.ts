@@ -3,7 +3,7 @@ import { execSync } from "child_process";
 import fs from "fs-extra";
 import * as path from "path";
 
-export const buildFold = path.resolve(__dirname,"../lib");
+export const buildFold = path.resolve(__dirname, "../lib");
 
 (() => {
   execSync(`rimraf -r ${buildFold} && tsc --noEmit false`);

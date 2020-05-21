@@ -1,11 +1,10 @@
 import { Answers } from "../../../../types";
 import fs from "fs-extra";
 import * as path from "path";
-import {finalFilesMap} from "../map"
-
+import { filesMap } from "../map";
 
 const tsComposer = async (answers: Answers) => {
-  const {finalPath: tsconfigPath, packagePath} = finalFilesMap.tsconfig()
+  const { outFilePath: tsconfigPath, packagePath } = filesMap.tsconfig;
   const packageJson = await fs.readJson(path.join(packagePath, `package.json`));
   const tsconfig = await fs.readFile(
     path.join(packagePath, `tsconfig.json`),

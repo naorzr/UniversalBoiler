@@ -6,6 +6,7 @@ import { Answers, fileObject } from "../../../../../types";
 import serverComposer from "../server";
 import tsComposer from "../typescript";
 import indexComposer from "./index-composer";
+import prettierComposer from "../dev-tools/prettier";
 
 const writeFile = (rootDir: string) => {
   fs.ensureDirSync(`./${rootDir}`);
@@ -26,9 +27,9 @@ export const createNodeApp = async (answers: Answers) => {
       serverComposer(answers),
       tsComposer(answers),
       indexComposer(answers),
+      prettierComposer(answers),
     ])
   ).filter((i) => typeof i !== "undefined");
-
 
   const packageJson = aggFiles
     .reduce(

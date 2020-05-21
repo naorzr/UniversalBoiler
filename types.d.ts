@@ -18,13 +18,15 @@ export interface fileObject {
   finalPath: string;
 }
 
-
 export type Composer = (
   answers: Answers
-) => Promise<undefined | {
-  file: fileObject;
-  packageJson: Record<string,any>;
-}> ;
+) => Promise<
+  | undefined
+  | {
+      file: fileObject;
+      packageJson: Record<string, any>;
+    }
+>;
 export type fileType = "ts" | "js";
 
 export type ServerComposer = (middleware?: Middleware) => Server;
